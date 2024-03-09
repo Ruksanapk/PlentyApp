@@ -411,17 +411,15 @@ class _FilterWidgetState extends State<FilterWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
-        buildCategoryButton('T-Shirts', tShirtsSelected),
+         buildCategoryButton('T-Shirts', tShirtsSelected),
         buildCategoryButton('Trousers', trousersSelected),
         buildCategoryButton('Cargo Pants', cargoPantsSelected),
         buildCategoryButton('Hoodies', hoodiesSelected),
         buildCategoryButton('Best Sellers', bestSellersSelected),
         buildCategoryButton('Shorts', shortsSelected),
 
-        SizedBox(height: 16),
+        SizedBox(height: 8.0), // Adjusted spacing
 
-        
         buildSizeButton('S', sizeSSelected),
         buildSizeButton('M', sizeMSelected),
         buildSizeButton('L', sizeLSelected),
@@ -429,7 +427,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         buildSizeButton('XXL', sizeXXLSelected),
         buildSizeButton('XXXL', sizeXXXLSelected),
 
-        SizedBox(height: 16),
+        SizedBox(height: 8.0),
 
         
         Text('Price Range'),
@@ -558,7 +556,6 @@ Widget buildCategoryButton(String category, bool isSelected) {
     );
   }
 }
-
 class CategoryWidget extends StatelessWidget {
   final Category category;
 
@@ -567,22 +564,24 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 77.0,
+      width: 60.0, // Adjusted width
       child: Column(
         children: [
           Image.asset(
             category.image,
-            width: 50.0,
-            height: 50.0,
+            width: 40.0, 
+            height: 40.0, 
           ),
-          SizedBox(height: 8.0),
-          Text(category.name),
+          SizedBox(height: 4.0), 
+          Text(
+            category.name,
+            style: TextStyle(fontSize: 12.0), 
+          ),
         ],
       ),
     );
   }
 }
-
 class Category {
   final String name;
   final String image;

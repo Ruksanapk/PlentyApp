@@ -38,10 +38,11 @@ class _CartScreenState extends State<CartScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var product in _cartProducts)
-              CartProductContainer(
-                product: product,
-                updateCart: _updateCart, cartProducts: [],
-              ),
+  CartProductContainer(
+    product: product,
+    cartProducts: _cartProducts,
+    updateCart: _updateCart,
+  ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
@@ -238,3 +239,254 @@ class Product {
     this.quantity = 1,
   });
 }
+
+
+
+// import 'package:ruksana_s_application2/widgets/app_bar/custom_app_bar.dart';
+// import 'package:ruksana_s_application2/widgets/app_bar/appbar_leading_image.dart';
+// import 'package:ruksana_s_application2/widgets/app_bar/appbar_subtitle.dart';
+// import 'widgets/fiftyone_item_widget.dart';
+// import 'package:ruksana_s_application2/widgets/custom_text_form_field.dart';
+// import 'package:ruksana_s_application2/widgets/custom_outlined_button.dart';
+// import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
+// import 'package:flutter/material.dart';
+// import 'package:ruksana_s_application2/core/app_export.dart';
+
+// // ignore_for_file: must_be_immutable
+// class Iphone1415ProMaxNineScreen extends StatelessWidget {
+//   Iphone1415ProMaxNineScreen({Key? key}) : super(key: key);
+
+//   TextEditingController applyController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         child: Scaffold(
+//             resizeToAvoidBottomInset: false,
+//             body: SizedBox(
+//                 width: double.maxFinite,
+//                 child: Column(children: [
+//                   _buildNine(context),
+//                   SizedBox(height: 28.v),
+//                   Expanded(
+//                       child: SingleChildScrollView(
+//                           child: Container(
+//                               padding: EdgeInsets.symmetric(horizontal: 17.h),
+//                               child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     _buildFiftyOne(context),
+//                                     SizedBox(height: 28.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(left: 17.h),
+//                                         child: Text("Discount Coupon",
+//                                             style:
+//                                                 CustomTextStyles.bodyMedium13)),
+//                                     SizedBox(height: 16.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         child: CustomTextFormField(
+//                                             controller: applyController,
+//                                             hintText: "FREE30",
+//                                             textInputAction:
+//                                                 TextInputAction.done,
+//                                             suffix: Padding(
+//                                                 padding: EdgeInsets.fromLTRB(
+//                                                     30.h, 13.v, 16.h, 14.v),
+//                                                 child: Text("Apply",
+//                                                     style: TextStyle(
+//                                                         color:
+//                                                             Color(0XFF000000),
+//                                                         fontSize: 13.fSize,
+//                                                         fontFamily: 'Almarena',
+//                                                         fontWeight:
+//                                                             FontWeight.w400,
+//                                                         decoration:
+//                                                             TextDecoration
+//                                                                 .underline))),
+//                                             suffixConstraints: BoxConstraints(
+//                                                 maxHeight: 41.v))),
+//                                     SizedBox(height: 29.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         child: _buildShipping(context,
+//                                             shipping: "Subtotal:",
+//                                             free: "AED900")),
+//                                     SizedBox(height: 8.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         child: _buildShipping(context,
+//                                             shipping: "Shipping:",
+//                                             free: "Free")),
+//                                     SizedBox(height: 7.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         child: _buildShipping(context,
+//                                             shipping: "Discount:",
+//                                             free: "AED100")),
+//                                     SizedBox(height: 15.v),
+//                                     Divider(
+//                                         color: theme.colorScheme.primary,
+//                                         indent: 17.h,
+//                                         endIndent: 53.h),
+//                                     SizedBox(height: 6.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         child: _buildShipping(context,
+//                                             shipping: "Total:",
+//                                             free: "AED800")),
+//                                     SizedBox(height: 38.v),
+//                                     CustomOutlinedButton(
+//                                         height: 46.v,
+//                                         text: "Checkout",
+//                                         margin: EdgeInsets.only(
+//                                             left: 17.h, right: 53.h),
+//                                         rightIcon: Container(
+//                                             margin: EdgeInsets.only(left: 30.h),
+//                                             child: CustomImageView(
+//                                                 imagePath: ImageConstant
+//                                                     .imgArrowleftWhiteA700,
+//                                                 height: 14.v,
+//                                                 width: 25.h)),
+//                                         buttonStyle:
+//                                             CustomButtonStyles.outlinePrimary1,
+//                                         buttonTextStyle: CustomTextStyles
+//                                             .bodyMediumWhiteA700_1),
+//                                     SizedBox(height: 22.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(left: 16.h),
+//                                         child: Text("You may also like",
+//                                             style:
+//                                                 CustomTextStyles.bodyMedium13)),
+//                                     SizedBox(height: 20.v),
+//                                     _buildWidget(context),
+//                                     SizedBox(height: 7.v),
+//                                     Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 2.h, right: 66.h),
+//                                         child: Row(children: [
+//                                           Container(
+//                                               width: 121.h,
+//                                               margin: EdgeInsets.only(top: 1.v),
+//                                               child: RichText(
+//                                                   text: TextSpan(children: [
+//                                                     TextSpan(
+//                                                         text: "jeans jacket\n",
+//                                                         style: theme.textTheme
+//                                                             .titleSmall),
+//                                                     TextSpan(
+//                                                         text: "AED500",
+//                                                         style: CustomTextStyles
+//                                                             .bodySmallIBMPlexSansffc5c5c512)
+//                                                   ]),
+//                                                   textAlign: TextAlign.left)),
+//                                           Container(
+//                                               width: 121.h,
+//                                               margin:
+//                                                   EdgeInsets.only(left: 86.h),
+//                                               child: RichText(
+//                                                   text: TextSpan(children: [
+//                                                     TextSpan(
+//                                                         text:
+//                                                             "Classics Shirt  \n",
+//                                                         style: theme.textTheme
+//                                                             .titleSmall),
+//                                                     TextSpan(
+//                                                         text: "AED500",
+//                                                         style: CustomTextStyles
+//                                                             .bodySmallIBMPlexSansffc5c5c512)
+//                                                   ]),
+//                                                   textAlign: TextAlign.left))
+//                                         ]))
+//                                   ]))))
+//                 ]))));
+//   }
+
+//   /// Section Widget
+//   Widget _buildNine(BuildContext context) {
+//     return Container(
+//         padding: EdgeInsets.symmetric(vertical: 38.v),
+//         decoration: BoxDecoration(
+//             image: DecorationImage(
+//                 image: fs.Svg(ImageConstant.imgGroup20), fit: BoxFit.cover)),
+//         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+//           SizedBox(height: 3.v),
+//           CustomAppBar(
+//               leadingWidth: 29.h,
+//               leading: AppbarLeadingImage(
+//                   imagePath: ImageConstant.imgArrowLeftPrimary,
+//                   margin: EdgeInsets.only(left: 20.h, top: 3.v),
+//                   onTap: () {
+//                     onTapArrowLeft(context);
+//                   }),
+//               centerTitle: true,
+//               title: AppbarSubtitle(text: "Cart"))
+//         ]));
+//   }
+
+//   /// Section Widget
+//   Widget _buildFiftyOne(BuildContext context) {
+//     return Align(
+//         alignment: Alignment.center,
+//         child: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 10.h),
+//             child: ListView.separated(
+//                 physics: NeverScrollableScrollPhysics(),
+//                 shrinkWrap: true,
+//                 separatorBuilder: (context, index) {
+//                   return SizedBox(height: 22.v);
+//                 },
+//                 itemCount: 2,
+//                 itemBuilder: (context, index) {
+//                   return FiftyoneItemWidget();
+//                 })));
+//   }
+
+//   /// Section Widget
+//   Widget _buildWidget(BuildContext context) {
+//     return Padding(
+//         padding: EdgeInsets.only(left: 2.h),
+//         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+//           Expanded(
+//               child: CustomImageView(
+//                   imagePath: ImageConstant.imgRectangle19868,
+//                   height: 233.v,
+//                   width: 187.h,
+//                   radius: BorderRadius.circular(12.h),
+//                   margin: EdgeInsets.only(right: 10.h))),
+//           Expanded(
+//               child: CustomImageView(
+//                   imagePath: ImageConstant.imgRectangle19869,
+//                   height: 231.v,
+//                   width: 187.h,
+//                   radius: BorderRadius.circular(12.h),
+//                   margin: EdgeInsets.only(left: 10.h)))
+//         ]));
+//   }
+
+//   /// Common widget
+//   Widget _buildShipping(
+//     BuildContext context, {
+//     required String shipping,
+//     required String free,
+//   }) {
+//     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+//       Text(shipping,
+//           style: CustomTextStyles.bodyMedium13
+//               .copyWith(color: theme.colorScheme.primary)),
+//       Text(free,
+//           style: CustomTextStyles.bodyMedium13
+//               .copyWith(color: theme.colorScheme.primary))
+//     ]);
+//   }
+
+//   /// Navigates back to the previous screen.
+//   onTapArrowLeft(BuildContext context) {
+//     Navigator.pop(context);
+//   }
+// }

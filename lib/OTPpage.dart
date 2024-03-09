@@ -1,15 +1,19 @@
 
 import "package:ecommerceapp/navigation.dart";
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 class OTPVerificationPage extends StatefulWidget {
+  const OTPVerificationPage({Key? key}) : super(key: key);
+
   @override
-  _OTPVerificationPageState createState() => _OTPVerificationPageState();
+  State<OTPVerificationPage> createState() => OTPVerificationPageState();
 }
 
-class _OTPVerificationPageState extends State<OTPVerificationPage> {
-  int _counter = 60; 
+class OTPVerificationPageState extends State<OTPVerificationPage> {
+  int _counter = 60;
   late Timer _timer;
 
   @override
@@ -24,116 +28,155 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         if (_counter > 0) {
           _counter--;
         } else {
-          _timer.cancel(); 
+          _timer.cancel();
         }
       });
     });
   }
 
   void resendOTP() {
-    
     setState(() {
-      _counter = 60; 
+      _counter = 60;
     });
     startTimer();
   }
 
   @override
   void dispose() {
-    _timer.cancel(); 
-    
+    _timer.cancel();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 80,
+      height: 80,
+      textStyle: TextStyle(
+        fontSize: 24,
+        color: Color.fromRGBO(30, 60, 87, 1),
+        fontWeight: FontWeight.w600,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Colors.black),
+    );
+
     return Scaffold(
-      
-        body:  Column(
-          children: [
-            Text("OTP Verification",
-            style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Almarena'),
-                  ),
-          
-        Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-           
-           
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildOTPDigitContainer(),
-                buildOTPDigitContainer(),
-                buildOTPDigitContainer(),
-                buildOTPDigitContainer(),
-              ],
-            ),
-
-            SizedBox(height: 20),
-            Text(
-              "Resend OTP in $_counter seconds",
-              style: TextStyle(fontSize: 16),
-            ),
-
-            SizedBox(height: 20),
-
-         
-            ElevatedButton(
-              onPressed: _counter > 0 ? null : resendOTP,
-              child: Text("Resend OTP"),
-            ),
-
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyBottomNavBar()),
-                  );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                minimumSize: Size(350, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
+        ),
+        elevation: 0,
+      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 20, right: 20),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "OTP Verification",
+                style: TextStyle(
+                  fontFamily: "Almarena",
+                  fontSize: 30,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
                 ),
               ),
-              child: Text("Confirm",style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Almarena'
-              ),),
-            ),
-          ],
-        ),
-      ),
-    ],),);
-  }
-
-  Widget buildOTPDigitContainer() {
-    return Container(
-      width: 50,
-      height: 50,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        border: Border.all(width: 1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextField(
-        maxLength: 1,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        style: TextStyle(fontSize: 20),
-        decoration: InputDecoration(
-          counterText: "", 
-          border: InputBorder.none,
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Please enter the OTP sent to your number",
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Pinput(
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+                focusedPinTheme: focusedPinTheme,
+                showCursor: true,
+                onCompleted: (pin) => print(pin),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Remaining Time: $_counter",
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  Spacer(),
+                  TextButton(
+                    onPressed: _counter > 0 ? null : resendOTP,
+                    child: Text(
+                      'Resend OTP',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: () {
+                  
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyBottomNavBar()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    minimumSize: Size(350, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    'Confirm',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Almarena',
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

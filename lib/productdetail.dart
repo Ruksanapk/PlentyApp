@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,18 +17,18 @@ class ProductDetailsView extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/Rectangle 19868 (1).png'), 
+                  image: AssetImage('assets/Rectangle 19868 (1).png'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-          
+
             TopCurvedContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product Name',
+                    'Blueshirt',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
@@ -57,7 +58,7 @@ class ProductDetailsView extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             SizedBox(
               width: 276,
               height: 50,
@@ -104,7 +105,7 @@ class TopCurvedContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           child,
-          SizedBox(height: 16), // Adjust the spacing as needed
+          SizedBox(height: 16), 
         ],
       ),
     );

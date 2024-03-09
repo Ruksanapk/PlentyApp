@@ -19,6 +19,7 @@ class _MyButtomNavBarState extends State<MyBottomNavBar> {
     CartScreen(),
     const Profilescreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,24 +35,25 @@ class _MyButtomNavBarState extends State<MyBottomNavBar> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
-              backgroundColor: Colors.transparent,
-              selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.black,
-              currentIndex: myCurrentIndex,
-              onTap: (index) {
-                setState(() {
-                  myCurrentIndex = index;
-                });
-              },
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite), label: "Favorite"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart_outlined), label: "Cart"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person_outline), label: "Profile"),
-              ]),
+            backgroundColor: Colors.transparent,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.black,
+            currentIndex: myCurrentIndex,
+            onTap: (index) {
+              setState(() {
+                myCurrentIndex = index;
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite), label: "Favorite"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: "Cart"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline), label: "Profile"),
+            ],
+          ),
         ),
       ),
       body: pages[myCurrentIndex],
