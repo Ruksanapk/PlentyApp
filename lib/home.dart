@@ -1,14 +1,20 @@
-import 'package:ecommerceapp/Favourite.dart';
-import 'package:ecommerceapp/cart.dart';
-import 'package:ecommerceapp/popular.dart';
+// import 'package:ecommerceapp/popular.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:another_carousel_pro/another_carousel_pro.dart';
-import 'package:flutter_svg/svg.dart';
 
+import 'filter.dart';
+
+// iimport 'package:ecommerceapp/Favourite.dart';
+import 'package:ecommerceapp/cart.dart';
+
+import 'package:ecommerceapp/popular.dart';
+
+// import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Homescreen extends StatelessWidget {
   final List<Category> categories = [
-    Category('New in',"assets/chair 1.png"),
+    Category('New in', "assets/chair 1.png"),
     Category('sales ', 'assets/chair 1 (1).png'),
     Category('Women', 'assets/chair 1 (6).png'),
     Category('kids', 'assets/chair 1 (5).png'),
@@ -16,11 +22,15 @@ class Homescreen extends StatelessWidget {
   ];
 
   final List<Products> newArrivals = [
-    Products('jeans jacket', "assets/new.jpg"),
-    Products('jeans jacket', 'assets/new1.jpg'),
-    Products('jeans jacket', "assets/new.jpg"),
+    Products(
+      'jeans jacket',
+      'AED500',
+      "assets/new.jpg",
+    ),
+    Products('jeans jacket', 'AED500', 'assets/new1.jpg'),
+    Products('jeans jacket', 'AED500', "assets/new.jpg"),
   ];
-  
+
   final List<Product> popularProducts = [
     Product('jeans jacket', 'AED500', 'assets/Rectangle 19844.png'),
     Product('jeans jacket', 'AED500', 'assets/Rectangle 19844 (1).png'),
@@ -30,105 +40,189 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(
-          'Welcome👋🏻',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontFamily: 'Almarena',
-          ),
-          maxLines: 1, 
-        ),
-          ),
-          actions: [
-            IconButton(
-              color: Colors.black,
-              icon: Icon(Icons.favorite_outline),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Favscreen()),
-                );
-              },
-            ),
-            IconButton(
-              color: Colors.black,
-              icon: Icon(Icons.shopping_cart_outlined),
-              onPressed: () {
-                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CartScreen()),
-                  );
-              },
-            ),
-          ],
-        ),
-      ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 20, 8, 10),
+              color: Color(0xffffffff),
+              child: Row(
+                children: [
+                  Text(
+                    'Welcome👋🏻',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'Almarena',
+                    ),
+                  ),
+                  SizedBox(width: 62),
+                  IconButton(
+                    icon: Icon(Icons.favorite_outline_rounded,
+                        color: Colors.black),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon:
+                        Icon(Icons.shopping_cart_outlined, color: Colors.black),
+                    onPressed: () {
+                      // Handle favorite button tap
+                    },
+                  ),
+                ],
+              ),
+            ),
             Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(25.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Search',
-                          border: InputBorder.none,
-                        ),
+                            icon: Icon(Icons.search_outlined),
+                            hintText: 'Search deals by place name',
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                              color: Color(0xffC5C5C5),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Almarena',
+                            )),
                       ),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon:SvgPicture.asset("assets/Filter.svg"),
+                  icon: SvgPicture.asset("assets/Filter.svg"),
                   onPressed: () {
-                    _showFilterBottomSheet(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FilterWidget()),
+                    );
                   },
                 ),
               ],
             ),
             SizedBox(height: 16),
+            Text("Explore Categories",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Almarena",
+                  fontSize: 16,
+                )),
+            SizedBox(height: 16),
             Wrap(
-              spacing: 12.0,
-              runSpacing: 14.0,
+              spacing: 14.0,
+              runSpacing: 16.0,
               children: categories
                   .map((category) => CategoryWidget(category: category))
                   .toList(),
             ),
             SizedBox(height: 16),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  height: 250,
-                  width: double.infinity,
-                  child: AnotherCarousel(
-                    images: const [
-                      AssetImage("assets/3stylishtshirt 1 (2).png"),
-                      AssetImage("assets/3stylishtshirt 1 (2).png"),
-                      AssetImage("assets/3stylishtshirt 1 (2).png"),
-                    ],
-                   
-                    dotSize: 6,
-                    indicatorBgPadding: 5.0,
+                CarouselSlider(
+                  items: [
+                    // Your carousel images here
+                    Image.asset("assets/3stylishtshirt 1 (2).png"),
+                    Image.asset("assets/3stylishtshirt 1 (2).png"),
+                    Image.asset("assets/3stylishtshirt 1 (2).png"),
+                  ],
+                  options: CarouselOptions(
+                    height: 260.0,
+                    aspectRatio: 16 / 9,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1,
+                    initialPage: 0,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index, reason) {
+                      // Handle page change
+                    },
                   ),
-                )
+                ),
+                Positioned(
+                  width: 203,
+                  height: 96,
+                  bottom: 0,
+                  left: 114,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Modern',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Almarena',
+                            fontSize: 45,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              thickness: 2,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Essentials',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Almarena',
+                                fontSize: 45,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              thickness: 2,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
+                  child: Text(
+                    'Discover new styles',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildIndicator(isActive: true),
+                    SizedBox(width: 10.0),
+                    buildIndicator(),
+                    SizedBox(width: 10.0),
+                    buildIndicator(),
+                  ],
+                ),
               ],
             ),
             Column(
@@ -137,36 +231,57 @@ class Homescreen extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, left: 16.0),
-                      child: Text(
-                        'Popular',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PopularProductsPage()),
-                  );
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              'View All',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontFamily: 'Almarena',
-                              ),
+                      padding: EdgeInsets.fromLTRB(10, 30, 8, 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Popular",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Almarena',
+                                  fontSize: 18,
+                                ),
+                          ),
+                          SizedBox(width: 140),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        PopularProductsPage()),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  "View More",
+                                  textAlign: TextAlign.end,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: "IBM Plex Sans",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.arrow_forward_ios),
+                                  iconSize: 12,
+                                ),
+                              ],
                             ),
-                            Icon(Icons.arrow_forward_ios, color: Colors.black),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -188,7 +303,7 @@ class Homescreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 171.0,
-                          margin: EdgeInsets.only(left: 16.0),
+                          margin: EdgeInsets.only(left: 14.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.white,
@@ -218,13 +333,13 @@ class Homescreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          popularProducts[index].name,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "Almarena",
-                                            color: Colors.black,)),
+                                        Text(popularProducts[index].name,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "Almarena",
+                                              color: Colors.black,
+                                            )),
                                         Text(
                                           popularProducts[index].price,
                                           style: TextStyle(
@@ -239,9 +354,7 @@ class Homescreen extends StatelessWidget {
                                         Icons.favorite_outline,
                                         color: Colors.black,
                                       ),
-                                      onPressed: () {
-                                        
-                                      },
+                                      onPressed: () {},
                                     ),
                                   ],
                                 ),
@@ -253,10 +366,9 @@ class Homescreen extends StatelessWidget {
                     },
                   ),
                 ),
-                
               ],
             ),
-          SizedBox(height:10),
+            SizedBox(height: 10),
             SizedBox(
               width: 400.0,
               height: 223.0,
@@ -269,37 +381,66 @@ class Homescreen extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, left: 16.0),
-                      child: Text(
-                        'New Arrival',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'View All',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontFamily: 'Almarena',
-                                    ),
+                      padding: EdgeInsets.fromLTRB(10, 30, 8, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Positioned(
+                            top: -4,
+                            child: Text(
+                              "New Arrival",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Almarena',
+                                    fontSize: 18,
                                   ),
-                                  Icon(Icons.arrow_forward_ios, color: Colors.black),
-                                ],
-                              ),
                             ),
                           ),
+                          SizedBox(width: 120),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        PopularProductsPage()),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  "View More",
+                                  textAlign: TextAlign.end,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: "IBM Plex Sans",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.arrow_forward_ios),
+                                  iconSize: 12,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(
-                  height: 280.0,
+                  height: 260.0,
                   child: Row(
                     children: [
                       Expanded(
@@ -311,16 +452,17 @@ class Homescreen extends StatelessWidget {
                               onTap: () {},
                               child: Container(
                                 width: 208.0,
-                                margin: EdgeInsets.only(left: 16.0),
+                                margin: EdgeInsets.only(left: 12.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[300],
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      height: 160.0,
+                                      height:
+                                          200.0, // Adjusted height for the image container
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(12.0),
@@ -347,7 +489,13 @@ class Homescreen extends StatelessWidget {
                                               fontFamily: 'Almarena',
                                             ),
                                           ),
-                                          
+                                          Text(
+                                            popularProducts[index].price,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -358,7 +506,6 @@ class Homescreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -369,193 +516,8 @@ class Homescreen extends StatelessWidget {
       ),
     );
   }
-
-  void _showFilterBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return FilterWidget();
-      },
-    );
-  }
 }
 
-class FilterWidget extends StatefulWidget {
-  @override
-  _FilterWidgetState createState() => _FilterWidgetState();
-}
-
-class _FilterWidgetState extends State<FilterWidget> {
-  
-  bool tShirtsSelected = false;
-  bool trousersSelected = false;
-  bool cargoPantsSelected = false;
-  bool hoodiesSelected = false;
-  bool bestSellersSelected = false;
-  bool shortsSelected = false;
-
-  
-  bool sizeSSelected = false;
-  bool sizeMSelected = false;
-  bool sizeLSelected = false;
-  bool sizeXLSelected = false;
-  bool sizeXXLSelected = false;
-  bool sizeXXXLSelected = false;
-
-  // Price Range
-  double lowerValue = 0;
-  double upperValue = 1000;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-         buildCategoryButton('T-Shirts', tShirtsSelected),
-        buildCategoryButton('Trousers', trousersSelected),
-        buildCategoryButton('Cargo Pants', cargoPantsSelected),
-        buildCategoryButton('Hoodies', hoodiesSelected),
-        buildCategoryButton('Best Sellers', bestSellersSelected),
-        buildCategoryButton('Shorts', shortsSelected),
-
-        SizedBox(height: 8.0), // Adjusted spacing
-
-        buildSizeButton('S', sizeSSelected),
-        buildSizeButton('M', sizeMSelected),
-        buildSizeButton('L', sizeLSelected),
-        buildSizeButton('XL', sizeXLSelected),
-        buildSizeButton('XXL', sizeXXLSelected),
-        buildSizeButton('XXXL', sizeXXXLSelected),
-
-        SizedBox(height: 8.0),
-
-        
-        Text('Price Range'),
-        RangeSlider(
-          values: RangeValues(lowerValue, upperValue),
-          min: 0,
-          max: 1000,
-          onChanged: (values) {
-            setState(() {
-              lowerValue = values.start;
-              upperValue = values.end;
-            });
-          },
-        ),
-
-        SizedBox(height: 16),
-
-        
-        GestureDetector(
-          onTap: () {
-            print('Applying Filter: '
-                'T-Shirts: $tShirtsSelected, '
-                'Trousers: $trousersSelected, '
-                'Size S: $sizeSSelected, '
-                'Price Range: $lowerValue - $upperValue');
-          },
-          child: Container(
-            padding: EdgeInsets.all(12),
-            color: Colors.black,
-            child: Center(
-              child: Text(
-                'Apply Filter',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-Widget buildCategoryButton(String category, bool isSelected) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          switch (category) {
-            case 'T-Shirts':
-              tShirtsSelected = !tShirtsSelected;
-              break;
-            case 'Trousers':
-              trousersSelected = !trousersSelected;
-              break;
-            case 'Cargo Pants':
-              cargoPantsSelected = !cargoPantsSelected;
-              break;
-            case 'Hoodies':
-              hoodiesSelected = !hoodiesSelected;
-              break;
-            case 'Best Sellers':
-              bestSellersSelected = !bestSellersSelected;
-              break;
-            case 'Shorts':
-              shortsSelected = !shortsSelected;
-              break;
-          }
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-          color: isSelected ? Colors.black : Colors.white,
-        ),
-        child: Text(
-          category,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-  Widget buildSizeButton(String size, bool isSelected) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          switch (size) {
-            case 'S':
-              sizeSSelected = !sizeSSelected;
-              break;
-            case 'M':
-              sizeMSelected = !sizeMSelected;
-              break;
-            case 'L':
-              sizeLSelected = !sizeLSelected;
-              break;
-            case 'XL':
-              sizeXLSelected = !sizeXLSelected;
-              break;
-            case 'XXL':
-              sizeXXLSelected = !sizeXXLSelected;
-              break;
-            case 'XXXL':
-              sizeXXXLSelected = !sizeXXXLSelected;
-              break;
-          }
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-          color: isSelected ? Colors.black : Colors.white,
-        ),
-        child: Text(
-          size,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-}
 class CategoryWidget extends StatelessWidget {
   final Category category;
 
@@ -564,29 +526,42 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 60.0, // Adjusted width
+      width: 50,
       child: Column(
         children: [
           Image.asset(
             category.image,
-            width: 40.0, 
-            height: 40.0, 
+            width: 50.0,
+            height: 50.0,
           ),
-          SizedBox(height: 4.0), 
+          SizedBox(height: 4.0),
           Text(
             category.name,
-            style: TextStyle(fontSize: 12.0), 
+            style: TextStyle(fontSize: 13.0),
           ),
         ],
       ),
     );
   }
 }
+
 class Category {
   final String name;
   final String image;
 
   Category(this.name, this.image);
+}
+
+Widget buildIndicator({bool isActive = false}) {
+  return Container(
+    width: 10.0,
+    height: 10.0,
+    margin: EdgeInsets.symmetric(horizontal: 2.0),
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: isActive ? Color(0xff0a0a0a) : Colors.grey,
+    ),
+  );
 }
 
 class Product {
@@ -596,8 +571,10 @@ class Product {
 
   Product(this.name, this.price, this.image);
 }
+
 class Products {
   final String name;
   final String image;
-  Products(this.name, this.image);
+  final String price;
+  Products(this.name, this.price, this.image);
 }

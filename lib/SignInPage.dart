@@ -1,6 +1,5 @@
-import "package:flutter/material.dart";
-import 'package:ecommerceapp/OTPpage.dart';
-import 'package:ecommerceapp/navigation.dart';
+import 'package:flutter/material.dart';
+import 'OTPpage.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
 
     var signInTextStyle = const TextStyle(
       fontFamily: 'IBM Plex Sans',
-      fontSize: 35, 
+      fontSize: 35, // Sign in font size
       fontWeight: FontWeight.w600,
       letterSpacing: -0.04,
     );
@@ -39,226 +38,171 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 0),
-                child: Text(
-                  "Welcome👋🏻",
-                  style: welcomeTextStyle,
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              Text(
-                "Sign in to continue",
-                style: signInTextStyle,
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "mobile number",
-                style: TextStyle(
-                  fontFamily: 'Almarena',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: -0.04,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(
-                height: 14,
-              ),
-              Container(
-                width: 360,
-                height: 60,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              Center(
+                child: Column(
                   children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          "Welcome👋🏻",
+                          style: welcomeTextStyle,
                         ),
                       ),
                     ),
-                    const Text(
-                      "|",
-                      style: TextStyle(fontSize: 32, color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Mobile Number",
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Text(
+                          "Sign in to continue",
+                          style: signInTextStyle,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Center(
-                
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OTPVerificationPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    minimumSize: Size(350, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Almarena',
+                    const SizedBox(
+                      height: 14,
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Center(
-               
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyBottomNavBar()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    minimumSize: Size(350, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    side: BorderSide(width: 1),
-                  ),
-                  child: Text(
-                    'Continue as Guest',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Almarena',
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
+                    Container(
+                      width: 360,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          SizedBox(
+                            width: 40,
+                            child: TextField(
+                              controller: countryController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          const Text(
+                            "|",
+                            style: TextStyle(fontSize: 32, color: Colors.grey),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Expanded(
+                            child: TextField(
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Mobile Number",
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTPVerificationPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          minimumSize: Size(350, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Almarena',
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => MyBottomNavBar()),
+                          // );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          minimumSize: Size(350, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          side: BorderSide(width: 1),
+                        ),
+                        child: Text(
+                          'Continue as Guest',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Almarena',
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              'Or continue with',
+                              style: TextStyle(color: Colors.grey[700]),
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
+                    SizedBox(height: 16),
+                    _buildLoginWithContainer(
+                      text: "Login with Google",
+                      image: 'assets/Google.png',
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 16),
-              Container(
-                width: 361.06,
-                height: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Login with Google",
-                      style: TextStyle(
-                        fontFamily: 'Almarena',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.04,
-                      ),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                      width: 23.85,
-                      height: 22,
-                      child: Image.asset(
-                        'assets/Google.png',
-                        width: 23.85,
-                        height: 22,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: 361.06,
-                height: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Login with Apple",
-                      style: TextStyle(
-                        fontFamily: 'Almarena',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.04,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                      width: 23.85,
-                      height: 22,
-                      child: Image.asset(
-                        'assets/Apple black logo.png',
-                        width: 23.85,
-                        height: 22,
-                      ),
+                    _buildLoginWithContainer(
+                      text: "Login with Apple",
+                      image: 'assets/Apple black logo.png',
                     ),
                   ],
                 ),
@@ -266,6 +210,46 @@ class _SignInPageState extends State<SignInPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoginWithContainer(
+      {required String text, required String image}) {
+    return Container(
+      width: 361.06,
+      height: 50,
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 100),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontFamily: 'Almarena',
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                letterSpacing: -0.04,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+            width: 23.85,
+            height: 22,
+            child: Image.asset(
+              image,
+              width: 23.85,
+              height: 22,
+            ),
+          ),
+        ],
       ),
     );
   }

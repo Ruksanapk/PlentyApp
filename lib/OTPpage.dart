@@ -155,7 +155,7 @@ class OTPVerificationPageState extends State<OTPVerificationPage> {
                   
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MyBottomNavBar()),
+                      MaterialPageRoute(builder: (context) => NavigationPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

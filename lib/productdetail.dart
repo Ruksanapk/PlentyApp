@@ -1,76 +1,223 @@
 import 'package:flutter/material.dart';
 
+import 'cart.dart';
+import 'checkoutpage.dart';
 
-class ProductDetailsView extends StatelessWidget {
+class ProductDetailPage extends StatelessWidget {
+  final Product product;
+
+  const ProductDetailPage({required this.product});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Product Details'),
-      ),
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Product Image
-            Container(
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/Rectangle 19868 (1).png'),
-                  fit: BoxFit.cover,
+            Stack(
+              children: [
+                Container(
+                  height: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      product.image,
+                      height: 500,
+                      width: 500,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 40,
+                  left: 10,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  right: 10,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: Icon(Icons.favorite_border, color: Colors.black),
+                      onPressed: () {
+                        
+                      },
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 400, 
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.name,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '\$99.99', 
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const SizedBox(height: 10),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                ),
+                                Text("(130 Review)",
+                                    style: TextStyle(color: Colors.white)),
+                                SizedBox(width: 40),
+                                Container(
+                                    color: Colors.white,
+                                    child: Row(children: [
+                                      IconButton(
+                                        icon: Icon(Icons.remove,
+                                            color: Colors.black),
+                                        onPressed: () {},
+                                      ),
+                                      Text(
+                                        '1',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontFamily: "Almarena"),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.add,
+                                            color: Colors.black),
+                                        onPressed: () {},
+                                      ),
+                                    ]))
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-
-            TopCurvedContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Blueshirt',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'AED 500',
-                    style: TextStyle(fontSize: 18, color: Colors.green),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.yellow),
-                      Text('4.5 (120 reviews)'),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      QuantitySelector(),
-                      SizeSelector(),
-                      ColorSelector(),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Product Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
               ),
-            ),
-
-            SizedBox(
-              width: 276,
-              height: 50,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff000000),
+                  color: Colors.white,
                 ),
-                child: Center(
-                  child: Text(
-                    'Add to Cart',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Sizes',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        _buildSizeOption('S'),
+                        SizedBox(width: 20),
+                        _buildSizeOption('M'),
+                        SizedBox(width: 20),
+                        _buildSizeOption('L'),
+                        SizedBox(width: 20),
+                        _buildSizeOption('XL'),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Colors',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        _buildColorOption(Colors.red),
+                        SizedBox(width: 20),
+                        _buildColorOption(Colors.green),
+                        SizedBox(width: 20),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'CML Harajuku Aesthetic Bear Anime Hoodie Women Kawaii Crewneck Long Sleeve Oversized Streetwear Fall Winter Clothes Tops (Color : Beige, Size : L)',
+                      style: TextStyle(fontSize: 13),
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          minimumSize: Size(270, 50),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.shopping_cart_outlined,
+                                    color: Color(0xfffbf9f9)),
+                                onPressed: () {
+                                  Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen()),
+                          );
+                                },
+                              ),
+                              Text('Add to Cart'),
+                            ]),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -79,114 +226,35 @@ class ProductDetailsView extends StatelessWidget {
       ),
     );
   }
-}
-class TopCurvedContainer extends StatelessWidget {
-  final Widget child;
 
-  const TopCurvedContainer({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSizeOption(String size) {
     return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
+      margin: EdgeInsets.only(right: 10),
+      child: CircleAvatar(
+        radius: 20,
+        backgroundColor: Colors.black,
+        child: CircleAvatar(
+          radius: 19,
+          backgroundColor: Colors.white,
+          child: Text(
+            size,
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xff0a0a0a),
+            ),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          child,
-          SizedBox(height: 16), 
-        ],
+        ),
       ),
     );
   }
-}
-class QuantitySelector extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(icon: Icon(Icons.remove), onPressed: () {}),
-        Text('1'),
-        IconButton(icon: Icon(Icons.add), onPressed: () {}),
-      ],
-    );
-  }
-}
 
-class SizeSelector extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizeOption(size: 'S'),
-        SizeOption(size: 'M'),
-        SizeOption(size: 'L'),
-        SizeOption(size: 'XL'),
-        SizeOption(size: 'XXL'),
-      ],
-    );
-  }
-}
-
-class SizeOption extends StatelessWidget {
-  final String size;
-
-  const SizeOption({required this.size});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildColorOption(Color color) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.black),
-      ),
-      child: Text(size),
-    );
-  }
-}
-
-class ColorSelector extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ColorOption(color: Colors.red),
-        ColorOption(color: Colors.blue),
-        ColorOption(color: Colors.green),
-        ColorOption(color: Colors.yellow),
-      ],
-    );
-  }
-}
-
-class ColorOption extends StatelessWidget {
-  final Color color;
-
-  const ColorOption({required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
+      margin: EdgeInsets.only(right: 10),
+      child: CircleAvatar(
+        radius: 15,
+        backgroundColor: color,
       ),
     );
   }
 }
-
